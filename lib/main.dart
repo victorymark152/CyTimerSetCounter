@@ -74,13 +74,9 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.start, // เปลี่ยนจาก center เป็น start
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ), // เว้นไว้นิดเดียวแค่ 10 กันตัวหนังสือติดขอบจอเกินไป
-
+                  SizedBox(height: 30), // 1. เพิ่มระยะห่างด้านบนให้มีช่องไฟ
                   Text(
                     "สำเร็จไปแล้ว",
                     style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -90,26 +86,36 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
 
-                  SizedBox(height: 10), // ลดระยะห่างลง
+                  SizedBox(height: 5), // 2. ลดช่องไฟก่อนคำว่าเวลาพัก
                   Text(
                     "เวลาพักที่เหลือ",
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                  Text(
-                    "$_secondsLeft",
-                    style: TextStyle(
-                      fontSize:
-                          60, // ลดขนาดตัวเลขเวลาลงจาก 120 เหลือ 80 เพื่อประหยัดที่
-                      fontWeight: FontWeight.bold,
-                      color: Colors.greenAccent,
+
+                  // 3. ปรับตัวเลขให้นิ่งขึ้นและช่องไฟน้อยลง
+                  Transform.translate(
+                    offset: Offset(
+                      0,
+                      0,
+                    ), // ขยับตัวเลขขึ้นไปหาข้อความด้านบนอีกนิด
+                    child: Text(
+                      "$_secondsLeft",
+                      style: TextStyle(
+                        fontSize: 100, // ปรับขนาดกลับมาเป็น 100 ให้ดูชัดๆ
+                        fontWeight: FontWeight.bold,
+                        color: Colors.greenAccent,
+                        height: 1.1, // บีบระยะห่างระหว่างบรรทัดของตัวเลข
+                      ),
                     ),
                   ),
 
-                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("ตั้งเวลาพัก: ", style: TextStyle(fontSize: 16)),
+                      Text(
+                        "ตั้งเวลาพัก (วิ): ",
+                        style: TextStyle(fontSize: 16),
+                      ),
                       SizedBox(
                         width: 60,
                         child: TextField(
@@ -118,57 +124,56 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
-                            isDense: true, // ทำให้ช่องกรอกข้อมูลเล็กลง
+                            isDense: true,
                             contentPadding: EdgeInsets.symmetric(vertical: 5),
                           ),
                         ),
                       ),
-                      Text(" วิ", style: TextStyle(fontSize: 16)),
                     ],
                   ),
 
-                  SizedBox(height: 20), // ลดช่องว่างก่อนถึงปุ่ม
+                  SizedBox(height: 25), // ระยะห่างก่อนถึงปุ่ม
 
                   SizedBox(
-                    width: screenWidth * 0.8,
-                    height: 40, // ลดความสูงปุ่มลงเล็กน้อย
+                    width: screenWidth * 0.80, // กว้างขึ้นอีกนิดเพื่อให้กดง่าย
+                    height: 60,
                     child: ElevatedButton(
                       onPressed: _startRest,
                       child: Text(
                         "จบเซ็ท / เริ่มพัก",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 22),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(height: 12),
+                  SizedBox(height: 15),
 
                   SizedBox(
-                    width: screenWidth * 0.8,
-                    height: 40,
+                    width: screenWidth * 0.80,
+                    height: 60,
                     child: ElevatedButton(
                       onPressed: _resetSets,
                       child: Text(
                         "รีเซ็ตจำนวนเซ็ท",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 22),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 30),
                 ],
               ),
             ),
