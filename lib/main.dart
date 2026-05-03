@@ -112,23 +112,57 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "ตั้งเวลาพัก (วิ): ",
-                        style: TextStyle(fontSize: 16),
+                      Text("ตั้งเวลาพัก: ", style: TextStyle(fontSize: 16)),
+
+                      // ปุ่มลบ (-)
+                      IconButton(
+                        icon: Icon(
+                          Icons.remove_circle_outline,
+                          color: Colors.redAccent,
+                        ),
+                        onPressed: () {
+                          int current = int.tryParse(_controller.text) ?? 60;
+                          if (current > 5) {
+                            // ป้องกันไม่ให้เวลาติดลบ
+                            setState(() {
+                              _controller.text = (current - 5).toString();
+                            });
+                          }
+                        },
                       ),
+
                       SizedBox(
-                        width: 60,
+                        width: 50,
                         child: TextField(
                           controller: _controller,
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.symmetric(vertical: 5),
                           ),
                         ),
                       ),
+
+                      // ปุ่มบวก (+)
+                      IconButton(
+                        icon: Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.greenAccent,
+                        ),
+                        onPressed: () {
+                          int current = int.tryParse(_controller.text) ?? 60;
+                          setState(() {
+                            _controller.text = (current + 5).toString();
+                          });
+                        },
+                      ),
+
+                      Text(" วิ", style: TextStyle(fontSize: 16)),
                     ],
                   ),
 
