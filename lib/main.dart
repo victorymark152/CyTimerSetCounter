@@ -78,7 +78,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                     MainAxisAlignment.start, // เปลี่ยนจาก center เป็น start
                 children: [
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ), // เว้นไว้นิดเดียวแค่ 10 กันตัวหนังสือติดขอบจอเกินไป
 
                   Text(
@@ -131,7 +131,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
 
                   SizedBox(
                     width: screenWidth * 0.8,
-                    height: 55, // ลดความสูงปุ่มลงเล็กน้อย
+                    height: 40, // ลดความสูงปุ่มลงเล็กน้อย
                     child: ElevatedButton(
                       onPressed: _startRest,
                       child: Text(
@@ -152,7 +152,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
 
                   SizedBox(
                     width: screenWidth * 0.8,
-                    height: 55,
+                    height: 40,
                     child: ElevatedButton(
                       onPressed: _resetSets,
                       child: Text(
