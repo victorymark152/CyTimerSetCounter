@@ -77,7 +77,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                   MainAxisAlignment.start, // เปลี่ยนจาก center เป็น start
               children: [
                 SizedBox(
-                  height: 10,
+                  height: 0,
                 ), // เว้นไว้นิดเดียวแค่ 10 กันตัวหนังสือติดขอบจอเกินไป
                 Text(
                   "สำเร็จไปแล้ว",
