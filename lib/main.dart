@@ -64,110 +64,113 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
 
   @override
   Widget build(BuildContext context) {
-    // ใช้ MediaQuery เพื่อเช็คขนาดหน้าจอเครื่องที่เปิดอยู่
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.start, // เปลี่ยนจาก center เป็น start
-              children: [
-                SizedBox(
-                  height: 0,
-                ), // เว้นไว้นิดเดียวแค่ 10 กันตัวหนังสือติดขอบจอเกินไป
-                Text(
-                  "สำเร็จไปแล้ว",
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-                Text(
-                  "$_sets เซ็ท",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                ),
+      body: SafeArea(
+        // ใช้ SafeArea เพื่อให้ไม่ไปทับแถบสถานะด้านบน
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.start, // เปลี่ยนจาก center เป็น start
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ), // เว้นไว้นิดเดียวแค่ 10 กันตัวหนังสือติดขอบจอเกินไป
 
-                SizedBox(height: 20), // ลดระยะห่างระหว่างส่วนต่างๆ ลงด้วย
-                Text(
-                  "เวลาพักที่เหลือ",
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-                Text(
-                  "$_secondsLeft",
-                  style: TextStyle(
-                    fontSize: 120,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.greenAccent,
+                  Text(
+                    "สำเร็จไปแล้ว",
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                ),
+                  Text(
+                    "$_sets เซ็ท",
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
 
-                SizedBox(height: 10),
+                  SizedBox(height: 10), // ลดระยะห่างลง
+                  Text(
+                    "เวลาพักที่เหลือ",
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                  Text(
+                    "$_secondsLeft",
+                    style: TextStyle(
+                      fontSize:
+                          60, // ลดขนาดตัวเลขเวลาลงจาก 120 เหลือ 80 เพื่อประหยัดที่
+                      fontWeight: FontWeight.bold,
+                      color: Colors.greenAccent,
+                    ),
+                  ),
 
-                // ... (ส่วนที่เหลือคงเดิม)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("ตั้งเวลาพัก (วิ): ", style: TextStyle(fontSize: 16)),
-                    SizedBox(
-                      width: 70,
-                      child: TextField(
-                        controller: _controller,
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("ตั้งเวลาพัก: ", style: TextStyle(fontSize: 16)),
+                      SizedBox(
+                        width: 60,
+                        child: TextField(
+                          controller: _controller,
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                            isDense: true, // ทำให้ช่องกรอกข้อมูลเล็กลง
+                            contentPadding: EdgeInsets.symmetric(vertical: 5),
+                          ),
+                        ),
+                      ),
+                      Text(" วิ", style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+
+                  SizedBox(height: 20), // ลดช่องว่างก่อนถึงปุ่ม
+
+                  SizedBox(
+                    width: screenWidth * 0.8,
+                    height: 55, // ลดความสูงปุ่มลงเล็กน้อย
+                    child: ElevatedButton(
+                      onPressed: _startRest,
+                      child: Text(
+                        "จบเซ็ท / เริ่มพัก",
                         style: TextStyle(fontSize: 18),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
 
-                SizedBox(height: 40),
+                  SizedBox(height: 12),
 
-                // ปรับปุ่มให้ยืดหยุ่นตามความกว้างหน้าจอ (80% ของหน้าจอ)
-                SizedBox(
-                  width: screenWidth * 0.8,
-                  height: 60, // ลดความสูงปุ่มลงนิดหน่อยให้พอดีมือถือ
-                  child: ElevatedButton(
-                    onPressed: _startRest,
-                    child: Text(
-                      "จบเซ็ท / เริ่มพัก",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  SizedBox(
+                    width: screenWidth * 0.8,
+                    height: 55,
+                    child: ElevatedButton(
+                      onPressed: _resetSets,
+                      child: Text(
+                        "รีเซ็ตจำนวนเซ็ท",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
-                ),
-
-                SizedBox(height: 15),
-
-                SizedBox(
-                  width: screenWidth * 0.8,
-                  height: 60,
-                  child: ElevatedButton(
-                    onPressed: _resetSets,
-                    child: Text(
-                      "รีเซ็ตจำนวนเซ็ท",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 40),
-              ],
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ),
