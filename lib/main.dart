@@ -73,9 +73,12 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment:
+                  MainAxisAlignment.start, // เปลี่ยนจาก center เป็น start
               children: [
-                SizedBox(height: 40), // ลดระยะห่างด้านบนลงจาก 80 เหลือ 40
+                SizedBox(
+                  height: 10,
+                ), // เว้นไว้นิดเดียวแค่ 10 กันตัวหนังสือติดขอบจอเกินไป
                 Text(
                   "สำเร็จไปแล้ว",
                   style: TextStyle(fontSize: 18, color: Colors.grey),
@@ -85,7 +88,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
 
-                SizedBox(height: 30),
+                SizedBox(height: 20), // ลดระยะห่างระหว่างส่วนต่างๆ ลงด้วย
                 Text(
                   "เวลาพักที่เหลือ",
                   style: TextStyle(fontSize: 18, color: Colors.grey),
@@ -93,13 +96,15 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                 Text(
                   "$_secondsLeft",
                   style: TextStyle(
-                    fontSize: 100,
+                    fontSize: 120,
                     fontWeight: FontWeight.bold,
                     color: Colors.greenAccent,
                   ),
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: 10),
+
+                // ... (ส่วนที่เหลือคงเดิม)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
