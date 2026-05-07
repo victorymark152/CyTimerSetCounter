@@ -1,6 +1,6 @@
 {
-    "name": "cytimersetcounter",
-    "short_name": "cytimersetcounter",
+    "name": "GymTimer",
+    "short_name": "GymTimer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
