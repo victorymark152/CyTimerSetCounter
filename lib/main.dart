@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-void main() => runApp(GymTimerApp());
+void main() => runApp(const GymTimerApp());
 
 class GymTimerApp extends StatelessWidget {
+  const GymTimerApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Gym Timer',
       theme: ThemeData.dark(), // ธีมมืดเหมาะกับบรรยากาศในยิม
-      home: WorkoutTimer(),
+      home: const WorkoutTimer(),
     );
   }
 }
 
 class WorkoutTimer extends StatefulWidget {
+  const WorkoutTimer({super.key});
+
   @override
   _WorkoutTimerState createState() => _WorkoutTimerState();
 }
@@ -35,7 +39,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
       _secondsLeft = int.tryParse(_controller.text) ?? 60;
     });
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_secondsLeft > 0) {
           _secondsLeft--;
@@ -76,31 +80,33 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 30), // 1. เพิ่มระยะห่างด้านบนให้มีช่องไฟ
-                  Text(
+                  const SizedBox(
+                      height: 30), // 1. เพิ่มระยะห่างด้านบนให้มีช่องไฟ
+                  const Text(
                     "สำเร็จไปแล้ว",
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   Text(
                     "$_sets เซ็ท",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.bold),
                   ),
 
-                  SizedBox(height: 5), // 2. ลดช่องไฟก่อนคำว่าเวลาพัก
-                  Text(
+                  const SizedBox(height: 5), // 2. ลดช่องไฟก่อนคำว่าเวลาพัก
+                  const Text(
                     "เวลาพักที่เหลือ",
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
 
                   // 3. ปรับตัวเลขให้นิ่งขึ้นและช่องไฟน้อยลง
                   Transform.translate(
-                    offset: Offset(
+                    offset: const Offset(
                       0,
                       0,
                     ), // ขยับตัวเลขขึ้นไปหาข้อความด้านบนอีกนิด
                     child: Text(
                       "$_secondsLeft",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 100, // ปรับขนาดกลับมาเป็น 100 ให้ดูชัดๆ
                         fontWeight: FontWeight.bold,
                         color: Colors.greenAccent,
@@ -112,11 +118,12 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("ตั้งเวลาพัก: ", style: TextStyle(fontSize: 16)),
+                      const Text("ตั้งเวลาพัก: ",
+                          style: TextStyle(fontSize: 16)),
 
                       // ปุ่มลบ (-)
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.remove_circle_outline,
                           color: Colors.redAccent,
                         ),
@@ -137,11 +144,11 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                           controller: _controller,
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.symmetric(vertical: 5),
                           ),
@@ -150,7 +157,7 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
 
                       // ปุ่มบวก (+)
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_circle_outline,
                           color: Colors.greenAccent,
                         ),
@@ -162,21 +169,17 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                         },
                       ),
 
-                      Text(" วิ", style: TextStyle(fontSize: 16)),
+                      const Text(" วิ", style: TextStyle(fontSize: 16)),
                     ],
                   ),
 
-                  SizedBox(height: 25), // ระยะห่างก่อนถึงปุ่ม
+                  const SizedBox(height: 25), // ระยะห่างก่อนถึงปุ่ม
 
                   SizedBox(
                     width: screenWidth * 0.80, // กว้างขึ้นอีกนิดเพื่อให้กดง่าย
                     height: 60,
                     child: ElevatedButton(
                       onPressed: _startRest,
-                      child: Text(
-                        "จบเซ็ท / เริ่มพัก",
-                        style: TextStyle(fontSize: 22),
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                         foregroundColor: Colors.white,
@@ -184,20 +187,20 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
+                      child: const Text(
+                        "จบเซ็ท / เริ่มพัก",
+                        style: TextStyle(fontSize: 22),
+                      ),
                     ),
                   ),
 
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
 
                   SizedBox(
                     width: screenWidth * 0.80,
                     height: 60,
                     child: ElevatedButton(
                       onPressed: _resetSets,
-                      child: Text(
-                        "รีเซ็ตจำนวนเซ็ท",
-                        style: TextStyle(fontSize: 22),
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey,
                         foregroundColor: Colors.white,
@@ -205,9 +208,13 @@ class _WorkoutTimerState extends State<WorkoutTimer> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
+                      child: const Text(
+                        "รีเซ็ตจำนวนเซ็ท",
+                        style: TextStyle(fontSize: 22),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
